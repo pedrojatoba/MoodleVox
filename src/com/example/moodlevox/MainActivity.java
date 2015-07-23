@@ -63,8 +63,8 @@ public class MainActivity extends Activity implements OnInitListener,
 		intent.putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 1);
 		// Inicio da Activity de reconhecimento de voz do Google
 		startActivityForResult(intent, VOICE_RECOGNITION_REQUEST_CODE);
-        Toast.makeText(MainActivity.this,comando, Toast.LENGTH_SHORT).show();
-	}
+
+    }
 
 	// Método executado ao receber o resultado da Activity de reconhecimento de
 	// voz da google
@@ -82,10 +82,11 @@ public class MainActivity extends Activity implements OnInitListener,
 			Comandos c = Util.Acao(menu, comando);
 			menu = c.getMenu();
 			speak(c.getTexto());
-			
-			recognize();
-		}
-	}
+
+            recognize();
+            super.onDestroy();
+        }
+    }
 
 	// Matar o processo de fala ao final da execução da APP
 	@Override
@@ -95,7 +96,6 @@ public class MainActivity extends Activity implements OnInitListener,
 			tts.shutdown();
 		}
 
-		super.onDestroy();
 	}
 
 	@Override
@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements OnInitListener,
     public void onInit(int code) {
         if (code == TextToSpeech.SUCCESS) {
             tts.setLanguage(Locale.getDefault());
-            speak("Bem vindo ao Teste do Moodle Voz. Diga qual comando você deseja executar. 1 Disciplinas ou 2 Mensagens");
+            speak("Bem vindo ao menu inicial do Moodle Voz. Diga. após o sinal. qual comando você deseja executar. 1. Disciplinas. 2. Mensagens.");
             recognize();
         } else {
             tts = null;

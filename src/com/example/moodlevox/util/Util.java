@@ -33,13 +33,10 @@ public class Util {
                 //fazer um equals melhor
                 if (compare(comando, "disciplina") || compare(comando, "1")) {
                     c.setMenu(1);
-                    c.setMenuAnterior(0);
-                    // buscar as disciplinas correntes do usuario e colocar no texto
-                    c.setTexto("As disciplinas atuais são: 1 Java, 2 Banco De Dados. Qual disciplina deseja acessar?");
-                    c.setTextoAnterior("Bem vindo ao Teste do Moodle Voz. Diga qual comando você deseja executar. 1 Disciplinas ou 2 Mensaegens");
+                    c.setActualKey(1);
                 } else if (compare(comando, "mensagens") || compare(comando,"2")) {
                     c.setMenu(2);
-                    c.setTexto("Acesso ao menu de mensagens, qual o comando desejado?");
+                    c.setActualKey(2);
                 } else {
                     c.setMenu(0);
                     c.setTexto("Comando não reconhecido");
@@ -48,18 +45,19 @@ public class Util {
 
             //Menu Disciplina, Opcoes: Java e Banco De Dados
             case 1:
-                c.setTexto("Acessada a disciplina " + comando);
+                //c.setTexto("Acessada a disciplina " + comando);
 
                 if (compare(comando, "voltar")) {
-                    c.setMenu(c.getMenuAnterior());
-                    c.setTexto("Voltando para o menu anterior");
+                    c.setMenu(0);
+                    c.setActualKey(0);
                 }else {
-                    if (compare(comando, "java") || compare(comando, "1")) {
+                    if (compare(comando, "Java") || compare(comando, "1")) {
                         c.setMenu(11);
-                        c.setTexto("As secções atuais são: 1. Semanas, 2. Fórum. Que secção da disciplina de Java você deseja acessar?");
-                    } else if (compare(comando, "banco de dados") || compare(comando,"2")) {
+                        c.setActualKey(11);
+                    }//Para ser feito em demanda
+                    else if (compare(comando, "banco de dados") || compare(comando, "2")) {
                         c.setMenu(12);
-                        c.setTexto("As secçoes atuais são: 1. Aulas, 2. Forum. Que secçao da disciplina de Banco de Dados voce deseja acessar?");
+                        c.setTexto("Acessando a disciplina de Banco de Dados. Diga. após o sinal. qual comando deseja executar. 1. Fórum 2. Semanas.");
                     } else {
                         c.setMenu(1);
                         c.setTexto("Comando não reconhecido");
@@ -69,52 +67,57 @@ public class Util {
 
                     //Menu disciplina Redes, Opcoes: Semanas, Forum
                     case 11:
-                        c.setTexto("Acessada a opção" + comando);
-                        if (compare(comando, "fórum")) {
-                            c.setMenu(111);
-                            c.setTexto("As opções atuais são: Listar Fóruns");
-                        } else if (compare(comando, "semanas")) {
-                            c.setMenu(112);
-                            c.setTexto("As acoes atuais sao: Recursos");
-                        } else if (compare(comando, "voltar")) {
+                        //c.setTexto("Acessada a opção" + comando);
+                        if (compare(comando, "voltar")) {
                             c.setMenu(1);
-                            c.setTexto("Voltando para o menu anterior");
+                            c.setActualKey(10);
                         } else {
-                            c.setMenu(11);
-                            c.setTexto("Comando não reconhecido");
+                            if (compare(comando, "fórum") || compare(comando, "1")) {
+                                c.setMenu(111);
+                                c.setActualKey(111);
+                            } else if (compare(comando, "semanas") || compare(comando, "2")) {
+                                c.setMenu(112);
+                                c.setActualKey(112);
+                            } else {
+                                c.setMenu(11);
+                                c.setTexto("Comando não reconhecido");
+                            }
                         }
-
                         break;
 
                             //Menu Disciplina Redes, Seccao Forum, Opcoes: Listar Foruns
                             case 111:
-                                c.setTexto("Executando Ação" + comando);
-                                if (compare(comando, "listar")) {
-                                    c.setMenu(1111);
-                                    c.setTexto("Os Fóruns disponíveis são: 1 Problemas, e 2 API");
-                                } else if (compare(comando, "voltar")) {
+                                //c.setTexto("Executando Ação" + comando);
+                                if (compare(comando, "voltar")) {
                                     c.setMenu(11);
-                                    c.setTexto("Voltando para o menu anterior");
+                                    c.setActualKey(110);
                                 } else {
-                                    c.setMenu(111);
-                                    c.setTexto("Comando não reconhecido");
+                                    if (compare(comando, "listar fóruns") || compare(comando, "1")) {
+                                        c.setMenu(1111);
+                                        c.setActualKey(1111);
+                                    } else {
+                                        c.setMenu(111);
+                                        c.setTexto("Comando não reconhecido");
+                                    }
                                 }
-
                                 break;
 
                                     //Menu Disciplina Redes, Seccao Forum, Acao Listar Forum Problemas, opcoes listar postagens
                                     case 1111:
-                                        c.setTexto("Você está no Fórum " + comando + ". Deseja listar todas as postagens? Ou alguma específica?");
-                                        if (compare(comando, "problemas")) {
-                                            c.setMenu(11111);
-                                        } else if (compare(comando, "api") || compare(comando, "2")) {
-                                            c.setMenu(11112);
-                                        } else if (compare(comando, "voltar")) {
+                                        if (compare(comando, "voltar")) {
                                             c.setMenu(111);
-                                            c.setTexto("Voltando para o menu anterior");
+                                            c.setActualKey(1110);
                                         } else {
-                                            c.setMenu(1111);
-                                            c.setTexto("Comando não reconhecido");
+                                            if (compare(comando, "problemas")) {
+                                                c.setMenu(11111);
+                                                c.setActualKey(11111);
+                                            } else if (compare(comando, "api") || compare(comando, "2")) {
+                                                c.setMenu(11112);
+                                                c.setActualKey(11112);
+                                            } else {
+                                                c.setMenu(1111);
+                                                c.setTexto("Comando não reconhecido");
+                                            }
                                         }
 
                                         break;
@@ -123,8 +126,9 @@ public class Util {
                                                     case 11111:
                                                         c.setTexto("As postagens do Fórum Problemas serão listadas");
 
-                                                        if (compare(comando, "postar")) {
-                                                            c.setMenu(111111);
+                                                        if (compare(comando, "voltar")) {
+                                                            c.setMenu(1111);
+                                                            c.setActualKey(11110);
                                                         } else if (compare(comando, "postagem um")) {
                                                             c.setMenu(11111);
                                                             c.setTexto("A mensagem foi:" + (comando = PopulaPostagensProblemas(numeroPostagem)));
@@ -133,9 +137,8 @@ public class Util {
                                                             c.setMenu(11111);
                                                             c.setTexto("A mensagem foi:" + (comando = PopulaPostagensProblemas(numeroPostagem)));
                                                             numeroPostagem = 2;
-                                                        } else if (compare(comando, "voltar")) {
-                                                            c.setMenu(1111);
-                                                            c.setTexto("voltando para o menu anterior");
+                                                        } else if (compare(comando, "postar")) {
+                                                            c.setMenu(111111);
                                                         } else {
                                                             c.setMenu(11111);
                                                             c.setTexto("Comando não reconhecido");
@@ -157,8 +160,9 @@ public class Util {
                                                     case 11112:
                                                         c.setTexto("As postagens do Fórum IP serão listadas");
 
-                                                        if (compare(comando, "postar")) {
-                                                            c.setMenu(111111);
+                                                        if (compare(comando, "voltar")) {
+                                                            c.setMenu(1111);
+                                                            c.setActualKey(11110);
                                                         } else if (compare(comando, "postagem um")) {
                                                             c.setMenu(11111);
                                                             c.setTexto("A mensagem foi:" + (comando = PopulaPostagensIP(numeroPostagem)));
@@ -167,9 +171,8 @@ public class Util {
                                                             c.setMenu(11111);
                                                             c.setTexto("A mensagem foi:" + (comando = PopulaPostagensIP(numeroPostagem)));
                                                             numeroPostagem = 2;
-                                                        } else if (compare(comando, "voltar")) {
-                                                            c.setMenu(1111);
-                                                            c.setTexto("voltando para o menu anterior");
+                                                        } else if (compare(comando, "postar")) {
+                                                            c.setMenu(111111);
                                                         } else {
                                                             c.setMenu(11111);
                                                             c.setTexto("Comando não reconhecido");
@@ -188,12 +191,12 @@ public class Util {
                             //Menu Disciplina Redes, Seccao Semana, Opcoes: Recursos
                             case 112:
                                 c.setTexto("Executando Acao" + comando);
-                                if (compare(comando, "Recursos")) {
-                                    c.setMenu(1121);
-                                    c.setTexto("Recursos são: Texto da semana, Links e Arquivos");
-                                } else if (compare(comando, "voltar")) {
+                                if (compare(comando, "voltar")) {
                                     c.setMenu(11);
-                                    c.setTexto("Voltando para o menu anterior");
+                                    c.setActualKey(110);
+                                } else if (compare(comando, "Recursos")) {
+                                    c.setMenu(1121);
+                                    c.setActualKey(1121);
                                 } else {
                                     c.setMenu(112);
                                     c.setTexto("Comando não reconhecido");
@@ -203,19 +206,18 @@ public class Util {
 
                                     //Menu Disciplina Redes Seccao Semana, Acao Recursos, Opçoes Texto da semana, Links e Arquivos
                                     case 1121:
-                                        c.setTexto("Entrando em " + comando);
-                                        if (compare(comando, "Texto da Semana")) {
+                                        if (compare(comando, "voltar")) {
+                                            c.setMenu(112);
+                                            c.setActualKey(1120);
+                                        } else if (compare(comando, "texto da Semana")) {
                                             c.setMenu(11211);
-                                            c.setTexto("entrando em " + comando);
+                                            c.setActualKey(11211);
                                         } else if (compare(comando, "Links")) {
                                             c.setMenu(11212);
-                                            c.setTexto("entrando em " + comando);
+                                            c.setActualKey(11212);
                                         } else if (compare(comando, "Arquivos")) {
                                             c.setMenu(11213);
-                                            c.setTexto("entrando em " + comando);
-                                        } else if (compare(comando, "voltar")) {
-                                            c.setMenu(112);
-                                            c.setTexto("Voltando para o menu anterior");
+                                            c.setActualKey(11213);
                                         } else {
                                             c.setMenu(1121);
                                             c.setTexto("Comando não reconhecido");
@@ -228,7 +230,7 @@ public class Util {
                                                 c.setTexto("O texto da semana é");
                                                 if (compare(comando, "voltar")) {
                                                     c.setMenu(1121);
-                                                    c.setTexto("Voltando para o menu anterior");
+                                                    c.setActualKey(11210);
                                                 } else {
                                                     c.setMenu(1121);
                                                     c.setTexto("Comando não reconhecido");
@@ -395,7 +397,7 @@ public class Util {
             }
         }
 //<60?
-        resp = (((double) acertos / correto.length) * 100) > 75 ? true : false;
+        resp = (((double) acertos / correto.length) * 100) >= 75 ? true : false;
 
         return resp;
     }
