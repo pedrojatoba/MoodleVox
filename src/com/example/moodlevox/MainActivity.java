@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements OnInitListener,
     public void onInit(int code) {
         if (code == TextToSpeech.SUCCESS) {
             tts.setLanguage(Locale.getDefault());
-            speak("Bem vindo ao menu inicial do Moodle Voz. Diga. após o sinal. qual comando você deseja executar. 1. Disciplinas. 2. Mensagens.");
+            speak("Bem vindo ao menu inicial do Moodle Voz. Diga. após o sinal. qual comando você deseja executar. 1. Disciplinas.. 2. Mensagens.");
             recognize();
         } else {
             tts = null;
